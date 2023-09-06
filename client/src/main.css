@@ -1,0 +1,17 @@
+body {
+  margin: 0;
+}
+
+.menu-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgb(108, 108, 255);
+  color: white;
+}
+
+.menu-bar button {
+  padding: 0.5rem 5rem;
+  background-color: aquamarine;
+  border-radius: 5px;
+}
