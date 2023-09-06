@@ -25,7 +25,7 @@ async function main() {
   await mongoose.connect(mongoDB);
 }
 
-const indexRouter = require('./routes/index');
+const indexRouter = require('./routes/indexRouter');
 const apiRouter = require('./routes/apiRouter');
 
 const app = express();
