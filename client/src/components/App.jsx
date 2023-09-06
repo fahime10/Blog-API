@@ -3,6 +3,8 @@ import reactLogo from '../assets/react.svg';
 import { useState, useEffect } from 'react';
 import { HashRouter, Routes, Route, Link } from 'react-router-dom';
 import HomePage from './HomePage';
+import SignUp from './SignUp';
+import ErrorPage from './ErrorPage';
 
 function App() {
   const [apiResponse, setApiResponse] = useState('');
@@ -31,9 +33,9 @@ function App() {
         </Link>
       </div>
       <Routes>
-        <Route path='/' element={<HomePage />} />
+        <Route path='/' element={<HomePage status={apiResponse} />} errorElement={<ErrorPage />} />
+        <Route path='/sign-up' element={<SignUp />} />
       </Routes>
-      <p>{apiResponse}</p>
     </HashRouter>
     <footer>Developed by Fahim Ahmed <img src={reactLogo} /></footer>
     </>
