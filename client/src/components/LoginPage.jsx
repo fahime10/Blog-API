@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-const SignUp = () => {
-
+const LoginPage = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const { setUser } = props;
 
     const handleUsername = (e) => {
         setUsername(e.target.value);
@@ -13,10 +13,11 @@ const SignUp = () => {
         setPassword(e.target.value);
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         const data = { username: username, password: password };
 
-        fetch('http://localhost:9000/api/sign-up', {
+        fetch('http://localhost:9000/api/login', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -24,18 +25,19 @@ const SignUp = () => {
             },
             body: JSON.stringify(data),
         })
-        .then((res) => {
+        .then(async (res) => {
             if (res.status !== 200) {
                 throw new Error(res.statusText);
             }
-            return res.json();
+            console.log(res.json());
+            await props.setUser(res.json());
         });
     }
 
     return (
-        <div className="sign-up-page">
-            <h2>Sign up form</h2>
-            <form method='GET' action='/' className="forms">
+        <div className="login-page">
+            <h2>Login form</h2>
+            <form method='' action='/posts' onSubmit={handleSubmit} className="forms">
                 <label>
                     Username:
                     <input type="text"
@@ -55,10 +57,10 @@ const SignUp = () => {
                         onChange={handlePassword}
                     />
                 </label>
-                <button type="submit" onClick={handleSubmit}>Submit</button>
+                <button type="submit">Submit</button>
             </form>
         </div>
     );
 };
 
-export default SignUp;
+export default LoginPage;
