@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const LoginPage = (props) => {
+const LoginPage = ({ setUser }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { setUser } = props;
+    const navigate = useNavigate();
 
     const handleUsername = (e) => {
         setUsername(e.target.value);
@@ -13,8 +14,7 @@ const LoginPage = (props) => {
         setPassword(e.target.value);
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         const data = { username: username, password: password };
 
         fetch('http://localhost:9000/api/login', {
@@ -25,21 +25,18 @@ const LoginPage = (props) => {
             },
             body: JSON.stringify(data),
         })
-        .then(async (res) => {
-            if (res.status !== 200) {
-                throw new Error(res.statusText);
-            }
-            console.log(res.json());
-            await props.setUser(res.json());
+        .then((res) => {
+            setUser(res.json());
+            navigate('/posts');
         });
     }
 
     return (
         <div className="login-page">
             <h2>Login form</h2>
-            <form method='' action='/posts' onSubmit={handleSubmit} className="forms">
+            <form className="forms">
                 <label>
-                    Username:
+                    Username: 
                     <input type="text"
                         name="username" 
                         minLength={1} 
@@ -49,7 +46,7 @@ const LoginPage = (props) => {
                     />
                 </label>
                 <label>
-                    Password:
+                    Password: 
                     <input type="password"
                         name="password"
                         minLength={4}
@@ -57,7 +54,7 @@ const LoginPage = (props) => {
                         onChange={handlePassword}
                     />
                 </label>
-                <button type="submit">Submit</button>
+                <button type="button" onClick={handleSubmit}>Submit</button>
             </form>
         </div>
     );

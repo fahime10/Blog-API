@@ -1,14 +1,20 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const PostsPage = (props) => {
-    const { user } = props;
+const PostsPage = ({ user }) => {
+    const [posts, setPosts] = useState([]);
 
-    console.log(user);
+    async function getUser() {
+        const response = await Promise.resolve(user.then((res) => res.username))
+        .then((res) => { return (res) });
 
-    if (user) {
+        return response;
+    }
+
+    if (user !== null && user !== undefined) {
         return(
             <div className="posts-page">
-                <h2>Hello, {user.username} </h2>
+                <h2>Hello,</h2>
                 <h1>Posts</h1>
             </div>
         );
