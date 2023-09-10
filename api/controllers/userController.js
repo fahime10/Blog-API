@@ -28,13 +28,13 @@ exports.login_form_post = asyncHandler(async (req, res, next) => {
     try {
         const user = await User.findOne({ username: req.body.username });
         if (!user) {
-            res.send('Incorrect details');
+            res.send({error:'Incorrect details'});
         }
 
         const match = await bcrypt.compare(req.body.password, user.password);
 
         if (!match) {
-            res.send('Incorrect details');
+            res.send({error: 'Incorrect details'});
         }
 
         res.send(user);
