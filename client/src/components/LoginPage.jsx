@@ -1,9 +1,6 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const LoginPage = ({ setUser }) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+const LoginPage = ({ setUsername, setPassword }) => {
     const navigate = useNavigate();
 
     const handleUsername = (e) => {
@@ -15,20 +12,7 @@ const LoginPage = ({ setUser }) => {
     }
 
     const handleSubmit = () => {
-        const data = { username: username, password: password };
-
-        fetch('http://localhost:9000/api/login', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data),
-        })
-        .then((res) => {
-            setUser(res.json());
-            navigate('/posts');
-        });
+        navigate('/posts');
     }
 
     return (
