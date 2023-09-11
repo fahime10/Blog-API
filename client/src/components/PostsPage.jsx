@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 const PostsPage = ({ username, password, setUsername, setPassword }) => {
@@ -8,7 +8,7 @@ const PostsPage = ({ username, password, setUsername, setPassword }) => {
 
     useEffect(() => {
         if (getUser() === `${undefined}` || getUser() === `${null}` || getUser() === null) {
-            fetch('http://localhost:9000/api/login', {
+            fetch("http://localhost:9000/api/login", {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -38,7 +38,7 @@ const PostsPage = ({ username, password, setUsername, setPassword }) => {
 
     useEffect(() => {
         if (getUser() === `${undefined}` || getUser() === `${null}`) {
-            fetch('http://localhost:9000/api/posts', {
+            fetch("http://localhost:9000/api/posts", {
                 method: 'POST',
             })
             .then((res) => res.json())
@@ -78,6 +78,9 @@ const PostsPage = ({ username, password, setUsername, setPassword }) => {
                     <h1>Latest Products Blog</h1>
                     <Link to='/'>
                         <button type='button' className='menu' onClick={logout}>Logout</button>
+                    </Link>
+                    <Link to='/posts/create'>
+                        <button type='button' className='menu'>Create a new post</button>
                     </Link>
                 </div>
                 <div className="posts-page">
