@@ -10,7 +10,6 @@ import PostsPage from './PostsPage';
 
 function App() {
   const [apiResponse, setApiResponse] = useState('');
-  const [user, setUser] = useState(null);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -40,11 +39,11 @@ function App() {
         <Route path='/' element={<HomePage status={apiResponse} />} errorElement={<ErrorPage />} />
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/login' element={
-          <LoginPage setUser={setUser} setUsername={setUsername} setPassword={setPassword} />} 
+          <LoginPage setUsername={setUsername} setPassword={setPassword} />} 
         />
         <Route path='/posts' element={
-          <PostsPage user={user} username={username} password={password} setUsername={setUsername} 
-            setPassword={setPassword} setUser={setUser} 
+          <PostsPage  username={username} password={password} 
+            setUsername={setUsername} setPassword={setPassword}
           />} 
         />
       </Routes>
