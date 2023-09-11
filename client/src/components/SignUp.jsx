@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const SignUp = () => {
 
@@ -33,31 +34,39 @@ const SignUp = () => {
     }
 
     return (
-        <div className="sign-up-page">
-            <h2>Sign up form</h2>
-            <form method='GET' action='/' className="forms">
-                <label>
-                    Username:
-                    <input type="text"
-                        name="username" 
-                        minLength={1} 
-                        maxLength={20}
-                        required={true}
-                        onChange={handleUsername}
-                    />
-                </label>
-                <label>
-                    Password:
-                    <input type="password"
-                        name="password"
-                        minLength={4}
-                        required={true}
-                        onChange={handlePassword}
-                    />
-                </label>
-                <button type="submit" onClick={handleSubmit}>Submit</button>
-            </form>
-        </div>
+        <>
+            <div className='menu-bar'>
+                <h1>Latest Products Blog</h1>
+                <Link to='/'>
+                    <button type='button' className='menu'>Home</button>
+                </Link>
+            </div>
+            <div className="sign-up-page">
+                <h2>Sign up form</h2>
+                <form method='GET' action='/' className="forms">
+                    <label>
+                        Username:
+                        <input type="text"
+                            name="username" 
+                            minLength={1} 
+                            maxLength={20}
+                            required={true}
+                            onChange={handleUsername}
+                        />
+                    </label>
+                    <label>
+                        Password:
+                        <input type="password"
+                            name="password"
+                            minLength={4}
+                            required={true}
+                            onChange={handlePassword}
+                        />
+                    </label>
+                    <button type="submit" onClick={handleSubmit}>Submit</button>
+                </form>
+            </div>
+        </>
     );
 };
 

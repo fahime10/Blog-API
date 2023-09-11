@@ -23,18 +23,6 @@ function App() {
   return (
     <>
     <BrowserRouter>
-      <div className='menu-bar'>
-        <h1>Latest Products Blog</h1>
-        <Link to='/'>
-          <button type='button' className='menu'>Home</button>
-        </Link>
-        <Link to='/sign-up'>
-          <button type='button' className='menu'>Sign up</button>
-        </Link>
-        <Link to='/login'>
-          <button type='button' className='menu'>Login</button>
-        </Link>
-      </div>
       <Routes>
         <Route path='/' element={<HomePage status={apiResponse} />} errorElement={<ErrorPage />} />
         <Route path='/sign-up' element={<SignUp />} />
