@@ -23,7 +23,7 @@ body {
   padding: 4rem 0;
 }
 
-.sign-up-page, .login-page {
+.sign-up-page, .login-page, .posts-page {
   display: flex;
   flex-direction: column;
   background-color: rgb(35, 131, 148);
@@ -47,6 +47,11 @@ body {
 
 label {
   padding-top: 1rem;
+}
+
+.posts-page {
+  align-items: center;
+  justify-content: space-around;
 }
 
 footer {
