@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginPage = ({ setUsername, setPassword }) => {
     const navigate = useNavigate();
@@ -16,31 +16,39 @@ const LoginPage = ({ setUsername, setPassword }) => {
     }
 
     return (
-        <div className="login-page">
-            <h2>Login form</h2>
-            <form className="forms">
-                <label>
-                    Username: 
-                    <input type="text"
-                        name="username" 
-                        minLength={1} 
-                        maxLength={20}
-                        required={true}
-                        onChange={handleUsername}
-                    />
-                </label>
-                <label>
-                    Password: 
-                    <input type="password"
-                        name="password"
-                        minLength={4}
-                        required={true}
-                        onChange={handlePassword}
-                    />
-                </label>
-                <button type="button" onClick={handleSubmit}>Submit</button>
-            </form>
-        </div>
+        <>
+            <div className='menu-bar'>
+                <h1>Latest Products Blog</h1>
+                <Link to='/'>
+                    <button type='button' className='menu'>Home</button>
+                </Link>
+            </div>
+            <div className="login-page">
+                <h2>Login form</h2>
+                <form className="forms">
+                    <label>
+                        Username: 
+                        <input type="text"
+                            name="username" 
+                            minLength={1} 
+                            maxLength={20}
+                            required={true}
+                            onChange={handleUsername}
+                        />
+                    </label>
+                    <label>
+                        Password: 
+                        <input type="password"
+                            name="password"
+                            minLength={4}
+                            required={true}
+                            onChange={handlePassword}
+                        />
+                    </label>
+                    <button type="button" onClick={handleSubmit}>Submit</button>
+                </form>
+            </div>
+        </>
     );
 };
 
