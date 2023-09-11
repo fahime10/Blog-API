@@ -7,6 +7,7 @@ import SignUp from './SignUp';
 import ErrorPage from './ErrorPage';
 import LoginPage from './LoginPage';
 import PostsPage from './PostsPage';
+import CreatePost from './CreatePost';
 
 function App() {
   const [apiResponse, setApiResponse] = useState('');
@@ -34,6 +35,7 @@ function App() {
             setUsername={setUsername} setPassword={setPassword}
           />} 
         />
+        <Route path='/posts/create' element={<CreatePost />} />
       </Routes>
     </BrowserRouter>
     <footer>Developed by Fahim Ahmed <img src={reactLogo} /></footer>

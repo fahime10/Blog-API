@@ -11,3 +11,19 @@ exports.posts_get = asyncHandler(async (req, res, next) => {
         console.log(err);
     }
 });
+
+exports.posts_create = asyncHandler(async (req, res, next) => {
+    console.log(req.body);
+    try {
+        const post = new Post({
+            user: req.body.id,
+            title: req.body.title,
+            text: req.body.text
+        });
+
+        await post.save();
+
+    } catch (err) {
+        console.log(err);
+    }
+});
