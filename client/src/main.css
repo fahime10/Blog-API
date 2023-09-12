@@ -54,6 +54,24 @@ label {
   justify-content: space-around;
 }
 
+.posts {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.post {
+  background-color: white;
+  color: blue;
+  margin: 1rem;
+  padding: 0.5rem 3rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.post:hover {
+  background-color: aqua;
+}
+
 footer {
   display: flex;
   align-items: center;
