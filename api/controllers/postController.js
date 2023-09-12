@@ -1,9 +1,9 @@
-const Post = require('../models/postModel');
-const asyncHandler = require('express-async-handler');
+const Post = require("../models/postModel");
+const asyncHandler = require("express-async-handler");
 
 exports.posts_get = asyncHandler(async (req, res, next) => {
     try {
-        const allPosts = await Post.find().populate('user').exec();
+        const allPosts = await Post.find().populate("user").exec();
 
         res.send(allPosts);
         
@@ -12,11 +12,10 @@ exports.posts_get = asyncHandler(async (req, res, next) => {
     }
 });
 
-exports.posts_create = asyncHandler(async (req, res, next) => {
-    console.log(req.body);
+exports.posts_create = asyncHandler(async (req, res, next) => {;
     try {
         const post = new Post({
-            user: req.body.id,
+            user: req.body.user,
             title: req.body.title,
             text: req.body.text
         });
