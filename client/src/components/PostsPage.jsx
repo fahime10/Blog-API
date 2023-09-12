@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 const PostsPage = ({ username, password, setUsername, setPassword }) => {
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState([]);
+    const navigate = useNavigate();
     let logged_user;
 
     useEffect(() => {
@@ -65,6 +66,11 @@ const PostsPage = ({ username, password, setUsername, setPassword }) => {
         localStorage.removeItem("user");
     }
 
+    function viewPost(e) {
+        localStorage.setItem("post", e.target.id);
+        navigate("/posts/comments");
+    }
+
     if (loading) {
         return(
             <>
@@ -87,9 +93,9 @@ const PostsPage = ({ username, password, setUsername, setPassword }) => {
                 <div className="posts-page">
                     <h2>Hello, { logged_user }</h2>
                     <h1>Posts</h1>
-                    <div className="posts">
+                    <div className="posts" onClick={viewPost}>
                         {posts.map((post) => (
-                            <div key={post._id} className="post">
+                            <div key={post._id} id={post._id} className="post">
                                 <p>Posted by {post.user.username}</p>
                                 <p>Title: {post.title}</p>
                             </div>
