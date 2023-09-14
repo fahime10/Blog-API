@@ -6,7 +6,7 @@ exports.comments_get = asyncHandler(async (req, res, next) => {
     try {
         const [allComments, post] = await Promise.all([
             Comment.find({ post: req.body.post }).populate("user").populate("post").exec(),
-            Post.findById(req.body.post)
+            Post.findById(req.body.post).populate("user").exec()
         ]);
 
         res.send({comments: allComments, post: post});
