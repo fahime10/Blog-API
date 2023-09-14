@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ViewPost = () => {
     const [loading, setLoading] = useState(true);
     const [post, setPost] = useState();
     const [comments, setComments] = useState();
+    const [comment, setComment] = useState("");
+    const navigate = useNavigate();
+    
+    const user = localStorage.getItem("id");
 
     useEffect(() => {
         if (getUser() !== `${undefined}` && getUser() !== `${null}`) {
@@ -44,6 +48,49 @@ const ViewPost = () => {
         localStorage.removeItem("user");
     }
 
+    function handleText(e) {
+        setComment(e.target.value);
+    }
+
+    function handleSubmit() {
+        setLoading(true);
+        if (comment.length > 0) {
+            fetch("http://localhost:9000/api/posts/comments/create", {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ user: user, post: post, text: comment })
+            })
+            .catch((err) => { 
+                console.log(err);
+            })
+            .finally(setComments());
+
+            fetch("http://localhost:9000/api/posts/comments", {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ post: localStorage.getItem("post") })
+            })
+            .then((res) => res.json())
+            .then((res) => {
+                setComments(res.comments);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                if (comments.length > 0) { 
+                    setLoading(false) ;
+                }
+            });
+        }
+    }
+
     if (loading) {
         return(
             <>
@@ -71,7 +118,7 @@ const ViewPost = () => {
                     </div>
                     <div className="comments-section">
                         <div className="comment-form">
-                            <div className="forms">
+                            <div className="forms" onSubmit={() => setKey(currentKey => currentKey + 1)}>
                                 <label>
                                     New comment:
                                 </label>
@@ -79,8 +126,9 @@ const ViewPost = () => {
                                     cols={30}
                                     rows={10}
                                     maxLength={1000}
+                                    onChange={handleText}
                                 />
-                                <button type="button">Submit</button>
+                                <button type="button" onClick={handleSubmit}>Submit</button>
                             </div>
                         </div>
                         <h2>Comments</h2>
@@ -88,6 +136,7 @@ const ViewPost = () => {
                             <div key={comment._id} className="comment">
                                 <p>{comment.text}</p>
                                 <p>by {comment.user.username}</p>
+                                <p>Date: {comment.timestamp.substr(0, 10)}</p>
                             </div>
                         ))}
                     </div>
