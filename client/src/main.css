@@ -42,7 +42,7 @@ textarea {
   flex-direction: column;
 }
 
-.forms button {
+.forms button, .single-post button {
   width: 5rem;
   padding: 0.5rem 0;
   margin: 1rem auto auto;

@@ -16,6 +16,8 @@ router.post("/posts", post_controller.posts_get);
 
 router.post("/posts/create", post_controller.posts_create);
 
+router.post("/posts/delete", post_controller.posts_delete);
+
 router.post("/posts/comments", comment_controller.comments_get);
 
 router.post("/posts/comments/create", comment_controller.comment_create);

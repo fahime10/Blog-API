@@ -1,4 +1,5 @@
 const Post = require("../models/postModel");
+const Comment = require("../models/commentModel");
 const asyncHandler = require("express-async-handler");
 
 exports.posts_get = asyncHandler(async (req, res, next) => {
@@ -25,4 +26,17 @@ exports.posts_create = asyncHandler(async (req, res, next) => {;
     } catch (err) {
         console.log(err);
     }
+});
+
+exports.posts_delete = asyncHandler(async (req, res, next) => {
+    console.log(req.body);
+    try {
+        await Promise.all([
+            Post.findByIdAndRemove(req.body.post),
+            Comment.deleteMany({ post: req.body.post })
+        ]);
+    
+    } catch (err) {
+        console.log(err);
+    } 
 });
