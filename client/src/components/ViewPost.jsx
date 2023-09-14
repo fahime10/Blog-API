@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 const ViewPost = () => {
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState("");
+    const [post, setPost] = useState();
+    const [comments, setComments] = useState();
 
     useEffect(() => {
         if (getUser() !== `${undefined}` && getUser() !== `${null}`) {
@@ -17,7 +18,8 @@ const ViewPost = () => {
             })
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
+                setPost(res.post);
+                setComments(res.comments);
             })
             .catch((err) => {
                 console.log(err);
@@ -49,39 +51,89 @@ const ViewPost = () => {
             </>
         );
 
-    } else if (getUser() !== `${undefined}` && getUser() !== `${null}`) {
-        return(
-            <>
-                {/* <div className="menu-bar">
-                    <h1>Latest Products Blog</h1>
-                    <Link to="/">
-                        <button type="button" className="menu" onClick={logout}>Logout</button>
-                    </Link>
-                    <Link to="/posts">
-                        <button type="button" className="menu">Back to posts</button>
-                    </Link>
-                </div>
-                <div className="posts-page">
-                    <h1>{data.post.title}</h1>
-                    <div className="post">
-                        <h2>Title: {data.post.title}</h2>
-                        <h3>Posted by {data.user.username}</h3>
-                        <p>{data.post.text}</p>
+    } else if (getUser() !== `${undefined}` && getUser() !== `${null}` && post !== undefined) {
+        if (comments.length > 0) {
+            return(
+                <>
+                    <div className="menu-bar">
+                        <h1>Latest Products Blog</h1>
+                        <Link to="/">
+                            <button type="button" className="menu" onClick={logout}>Logout</button>
+                        </Link>
+                        <Link to="/posts">
+                            <button type="button" className="menu">Back to posts</button>
+                        </Link>
                     </div>
-                </div>
-                <div className="comments">
-                    {data.map((comment) => (
-                        <div key={comment._id} className="comment">
-                            <p>Comment: {comment.text}</p>
+                    <div className="single-post">
+                        <h1>Title: {post.title}</h1>
+                        <h3>Posted by {post.user.username}</h3>
+                        <p>{post.text}</p>
+                    </div>
+                    <div className="comments-section">
+                        <div className="comment-form">
+                            <div className="forms">
+                                <label>
+                                    New comment:
+                                </label>
+                                <textarea name="new-comment"
+                                    cols={30}
+                                    rows={10}
+                                    maxLength={1000}
+                                />
+                                <button type="button">Submit</button>
+                            </div>
                         </div>
-                    ))}
-                </div> */}
-            </>
-        );
+                        <h2>Comments</h2>
+                        {comments.map((comment) => (
+                            <div key={comment._id} className="comment">
+                                <p>{comment.text}</p>
+                                <p>by {comment.user.username}</p>
+                            </div>
+                        ))}
+                    </div>
+                </>
+            );
+        } else {
+            return(
+                <>
+                    <div className="menu-bar">
+                        <h1>Latest Products Blog</h1>
+                        <Link to="/">
+                            <button type="button" className="menu" onClick={logout}>Logout</button>
+                        </Link>
+                        <Link to="/posts">
+                            <button type="button" className="menu">Back to posts</button>
+                        </Link>
+                    </div>
+                    <div className="single-post">
+                        <h1>Title: {post.title}</h1>
+                        <h3>Posted by {post.user.username}</h3>
+                        <p>{post.text}</p>
+                    </div>
+                    <div className="comments-section">
+                        <div className="comment-form">
+                            <div className="forms">
+                                <label>
+                                    New comment:
+                                </label>
+                                <textarea name="new-comment"
+                                    cols={30}
+                                    rows={10}
+                                    maxLength={1000}
+                                />
+                                <button type="button">Submit</button>
+                            </div>
+                        </div>
+                        <h2>Comments</h2>
+                    </div>
+                </>
+            );
+        }
+        
 
     } else {
         return(
-            <div className="posts-page">
+            <div className="comments-page">
                 <p>Sorry, you are not authorised</p>
                 <Link to="/">
                     <button type="button">Home page</button>

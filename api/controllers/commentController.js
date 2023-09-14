@@ -4,10 +4,12 @@ const asyncHandler = require("express-async-handler");
 
 exports.comments_get = asyncHandler(async (req, res, next) => {
     try {
-        const allComments = await Comment.find({ post: req.body.post }).populate("user").populate("post").exec();
+        const [allComments, post] = await Promise.all([
+            Comment.find({ post: req.body.post }).populate("user").populate("post").exec(),
+            Post.findById(req.body.post)
+        ]);
 
-        console.log(allComments);
-        res.send(allComments);
+        res.send({comments: allComments, post: post});
 
     } catch (err) {
         console.log(err);

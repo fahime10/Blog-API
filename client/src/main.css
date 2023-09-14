@@ -2,6 +2,11 @@ body {
   margin: 0;
 }
 
+textarea {
+  resize: none;
+  margin: 0 5%;
+}
+
 .menu-bar {
   display: flex;
   align-items: center;
@@ -23,7 +28,7 @@ body {
   padding: 4rem 0;
 }
 
-.sign-up-page, .login-page, .posts-page, .post-form {
+.sign-up-page, .login-page, .posts-page, .post-form, .single-post {
   display: flex;
   flex-direction: column;
   background-color: rgb(35, 131, 148);
@@ -70,6 +75,23 @@ label {
 
 .post:hover {
   background-color: aqua;
+}
+
+.comments-section {
+  background-color: rgb(41, 157, 178);
+  color: white;
+  text-align: center;
+}
+
+.comment-form {
+  margin: 0 30%;
+  border: 3px solid black;
+}
+
+.comment {
+  margin: 0 10%;
+  padding: 1rem 8rem;
+  border: 3px solid white;
 }
 
 footer {
