@@ -68,7 +68,9 @@ const PostsPage = ({ username, password, setUsername, setPassword }) => {
 
     function viewPost(e) {
         localStorage.setItem("post", e.target.id);
-        navigate("/posts/comments");
+        if (localStorage.getItem("post") !== "") {
+            navigate("/posts/comments");
+        }
     }
 
     if (loading) {
@@ -93,9 +95,9 @@ const PostsPage = ({ username, password, setUsername, setPassword }) => {
                 <div className="posts-page">
                     <h2>Hello, { logged_user }</h2>
                     <h1>Posts</h1>
-                    <div className="posts" onClick={viewPost}>
+                    <div className="posts">
                         {posts.map((post) => (
-                            <div key={post._id} id={post._id} className="post">
+                            <div key={post._id} id={post._id} className="post" onClick={viewPost}>
                                 <p>Posted by {post.user.username}</p>
                                 <p>Title: {post.title}</p>
                             </div>

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = ({ setUsername, setPassword }) => {
     const navigate = useNavigate();
@@ -17,10 +17,10 @@ const LoginPage = ({ setUsername, setPassword }) => {
 
     return (
         <>
-            <div className='menu-bar'>
+            <div className="menu-bar">
                 <h1>Latest Products Blog</h1>
-                <Link to='/'>
-                    <button type='button' className='menu'>Home</button>
+                <Link to="/">
+                    <button type="button" className="menu">Home</button>
                 </Link>
             </div>
             <div className="login-page">
