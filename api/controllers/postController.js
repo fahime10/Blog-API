@@ -29,7 +29,6 @@ exports.posts_create = asyncHandler(async (req, res, next) => {;
 });
 
 exports.posts_delete = asyncHandler(async (req, res, next) => {
-    console.log(req.body);
     try {
         await Promise.all([
             Post.findByIdAndRemove(req.body.post),

@@ -30,3 +30,11 @@ exports.comment_create = asyncHandler(async (req, res, next) => {
         console.log(err);
     }
 });
+
+exports.comment_delete = asyncHandler(async (req, res, next) => {
+    try {
+        await Comment.findByIdAndRemove(req.body.comment);
+    } catch (err) {
+        console.log(err);
+    }
+});
