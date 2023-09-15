@@ -22,4 +22,6 @@ router.post("/posts/comments", comment_controller.comments_get);
 
 router.post("/posts/comments/create", comment_controller.comment_create);
 
+router.post("/posts/comments/delete", comment_controller.comment_delete);
+
 module.exports = router;
