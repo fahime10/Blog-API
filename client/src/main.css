@@ -98,4 +98,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  background-color: rgb(0, 0, 131);
+  color: gold;
+  padding: 1rem 0;
 }
