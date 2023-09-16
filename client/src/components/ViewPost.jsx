@@ -62,7 +62,7 @@ const ViewPost = () => {
         setComment(e.target.value);
     }
 
-    function handleSubmit() {
+    async function handleSubmit() {
         if (comment.length > 0) {
             setLoading(true);
             fetch("http://localhost:9000/api/posts/comments/create", {
@@ -73,19 +73,6 @@ const ViewPost = () => {
                 },
                 body: JSON.stringify({ user: user, post: post, text: comment })
             })
-            .catch((err) => { 
-                console.log(err);
-            })
-            .finally(setComments());
-
-            fetch("http://localhost:9000/api/posts/comments", {
-                method: 'POST',
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ post: localStorage.getItem("post") })
-            })
             .then((res) => res.json())
             .then((res) => {
                 setComments(res.comments);
@@ -93,15 +80,11 @@ const ViewPost = () => {
             .catch((err) => {
                 console.log(err);
             })
-            .finally(() => {
-                if (comments.length > 0) { 
-                    setLoading(false);
-                }
-            });
+            .finally(setLoading(false));
         }
     }
 
-    function handleDeletePost() {
+    async function handleDeletePost() {
         fetch("http://localhost:9000/api/posts/delete", {
             method: 'POST',
             headers: {
@@ -116,7 +99,7 @@ const ViewPost = () => {
         .finally(navigate("/posts"));
     }
 
-    function handleDeleteComment(e) {
+    async function handleDeleteComment(e) {
         setLoading(true);
         fetch("http://localhost:9000/api/posts/comments/delete", {
             method: 'POST',
@@ -124,7 +107,11 @@ const ViewPost = () => {
                 Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ comment: e.target.id })
+            body: JSON.stringify({ comment: e.target.id, post: post._id })
+        })
+        .then((res) => res.json())
+        .then((res) => {
+            setComments(res.comments);
         })
         .catch((err) => {
             console.log(err);

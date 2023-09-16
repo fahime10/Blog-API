@@ -9,7 +9,7 @@ exports.comments_get = asyncHandler(async (req, res, next) => {
             Post.findById(req.body.post).populate("user").exec()
         ]);
 
-        res.send({comments: allComments, post: post});
+        res.send({ comments: allComments, post: post });
 
     } catch (err) {
         console.log(err);
@@ -29,11 +29,36 @@ exports.comment_create = asyncHandler(async (req, res, next) => {
     } catch (err) {
         console.log(err);
     }
+
+    try {
+        const [allComments, post] = await Promise.all([
+            Comment.find({ post: req.body.post }).populate("user").populate("post").exec(),
+            Post.findById(req.body.post).populate("user").exec()
+        ]);
+
+        res.send({ comments: allComments, post: post._id });
+
+    } catch (err) {
+        console.log(err);
+    }
+
 });
 
 exports.comment_delete = asyncHandler(async (req, res, next) => {
     try {
         await Comment.findByIdAndRemove(req.body.comment);
+    } catch (err) {
+        console.log(err);
+    }
+
+    try {
+        const [allComments, post] = await Promise.all([
+            Comment.find({ post: req.body.post }).populate("user").populate("post").exec(),
+            Post.findById(req.body.post).populate("user").exec()
+        ]);
+
+        res.send({ comments: allComments, post: post });
+
     } catch (err) {
         console.log(err);
     }
